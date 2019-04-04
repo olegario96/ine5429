@@ -17,6 +17,9 @@ def calculate_k_m(n):
     return k - 1, int(m0)
 
 def miller_rabin(n, a):
+    if n != 2 and n % 2 == 0:
+        return False
+
     k, m = calculate_k_m(n)
 
     if 1 > a or a > n - 1:
