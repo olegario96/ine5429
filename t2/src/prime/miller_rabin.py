@@ -14,7 +14,7 @@ def calculate_k_m(n):
         m0 = m1
         m1 = n / (2**k)
 
-    return k - 1, m0
+    return k - 1, int(m0)
 
 def miller_rabin(n, a):
     k, m = calculate_k_m(n)
@@ -24,7 +24,7 @@ def miller_rabin(n, a):
 
     b0 = m
     i = 0
-    while b0 != n -1 and b0 != 1:
+    while (b0 != n -1 and b0 != 1) and (i < k - 1):
         b0 = (2**b0) % n
         i += 1
 
@@ -33,8 +33,10 @@ def miller_rabin(n, a):
             return False
         elif b0 == n - 1:
             return True
+        else:
+            return False
     else:
         return True
 
 if __name__ == '__main__':
-    print(miller_rabin(53, 2))
+    miller_rabin(29, 4)
