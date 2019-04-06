@@ -1,1 +1,1 @@
-from . import inversive_congruential_generator
+from .lagged_fibonacci_generator import lagged_fibonacci_generator

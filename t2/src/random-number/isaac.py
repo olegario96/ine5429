@@ -34,7 +34,7 @@ def mix(a, b, c, d, e, f, g, h):
     return a, b, c, d, e, f, g, h
 
 
-def isaac():
+def isaac_():
     global aa, bb, cc, randcnt
 
     cc = (cc + 1) & HEX_MASK
@@ -98,18 +98,18 @@ def rand_init(flag):
             g += mm[i + 6]; g &= HEX_MASK
             h += mm[i + 7]; h &= HEX_MASK
 
-            a, b, c, d, e, f, g, h = mix(a, b, c, d, e, f, g, h)
+        a, b, c, d, e, f, g, h = mix(a, b, c, d, e, f, g, h)
 
-            mm[i] = a
-            mm[i + 1] = b
-            mm[i + 2] = c
-            mm[i + 3] = d
-            mm[i + 4] = e
-            mm[i + 5] = f
-            mm[i + 6] = g
-            mm[i + 7] = h
+        mm[i] = a
+        mm[i + 1] = b
+        mm[i + 2] = c
+        mm[i + 3] = d
+        mm[i + 4] = e
+        mm[i + 5] = f
+        mm[i + 6] = g
+        mm[i + 7] = h
 
-    isaac()
+    isaac_()
     randcnt = 0
 
 def i_random():
@@ -118,7 +118,7 @@ def i_random():
     r = randrsl[randcnt]
     randcnt += 1
     if (randcnt > 255):
-        isaac()
+        isaac_()
 
     return r
 
@@ -176,11 +176,11 @@ def caesar_str(m, msg, modulo, start):
 
     return bytes(c)
 
-def main_inversive():
+def isaac(msg, key):
     global MOD, START
 
-    msg = 'a Top Secret secret'.encode('ascii')
-    key = 'this is my secret key'.encode('ascii')
+    msg = msg.encode('ascii')
+    key = key.encode('ascii')
 
     l = len(msg)
 
@@ -204,3 +204,8 @@ def main_inversive():
     for i in range(0, l):
         print(cctx[i])
     print('MOD dcr: {}'.format(cptx.decode('ascii')))
+
+if __name__ == '__main__':
+    msg = 'a Top Secret secret'
+    key = 'this is my secret key'
+    isaac(msg, key)
