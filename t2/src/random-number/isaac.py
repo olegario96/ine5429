@@ -23,7 +23,17 @@ c = []
 
 def mix(a, b, c, d, e, f, g, h):
     """
-        TODO
+        Mix the variables passed as
+        argument to looks like just
+        a random data. It shift
+        and sum they. The shift values
+        are defined by the algorithm.
+
+        Returns: tuple containing the
+        new values for a, b, c, d, e, f,
+        g, h. This is necessary, because Python
+        uses a copy in params for primary types.
+
     """
     a ^= (b << 11); d += a; b +=c
     b ^= c >> 2; e += b; c += d
@@ -37,7 +47,19 @@ def mix(a, b, c, d, e, f, g, h):
 
 def isaac():
     """
-        TODO
+        Implements the base algorithm for
+        the ISAAC Cypher. Uses a period
+        of 4 to check how the should
+        be shifted. Store the result on
+        the global buffer randrsl to save
+        the pseudo random numbers. Finally,
+        resets the counter that is used to
+        check when the isaac should be
+        called or not.
+
+        Returns: None. As it stores all
+        the result on global variables,
+        no return is necessary.
     """
     global aa, bb, cc, randcnt
 
@@ -63,8 +85,22 @@ def isaac():
     randcnt = 0
 
 def rand_init(flag):
-    """
-        TODO
+    """ Implements the randomness to generate pseudo
+        random integers, based on ISAAC algorithm
+        definition. Starts the pointers a ~ h,
+        on the preset memory value. Calculate
+        the values, call the isaac method and
+        reset the counter to call again the
+        isaac method.
+
+        Args:
+            flag (boolean): if True, use the global
+            buffer randrsl to initialize the global
+            buffer mm.
+
+        Returns: None. As it stores all
+        the result on global variables,
+        no return is necessary.
     """
     global aa, bb, cc, randrsl, randcnt
     aa = bb = cc = 0
@@ -120,8 +156,17 @@ def rand_init(flag):
     randcnt = 0
 
 def i_random():
-    """
-        TODO
+    """Generate a pseudo random integer
+        based on the globals randcnt variable
+        and randrsl buffer. Will save the
+        the result on a variable, and increments
+        the pointer. It the variable is greater
+        than 256 (the default value for the message
+        len), will run again the isaac algorithm
+        and reset the pointer.
+
+        Returns: returns a periodic pseudo random
+        integer
     """
     global randrsl, randcnt
 
@@ -145,8 +190,22 @@ def i_rand_a():
     return i_random() % 95 + 32
 
 def i_seed(seed, flag):
-    """
-        TODO
+    """ Clears the global buffer mm and initialize the
+        randrsl global buffer with the seed, and fills it
+        with zeroes in case of the seed be smaller than
+        ranrsl. Calls the rand_init method using the flag
+        passed as argument.
+
+        Args:
+            seed (list): list of integers to garantee
+            the minimal randomness for the algorithm.
+            flag (boolean): if True, use the global
+            buffer randrsl to initialize the global
+            buffer mm.
+
+        Returns: None. As it stores all
+        the result on global variables,
+        no return is necessary.
     """
     global randrsl, mm
 
@@ -192,8 +251,20 @@ def vernam(msg):
     return bytes(v)
 
 def caesar(m, ch, shift, modulo, start):
-    """
-        TODO
+    """ Implements the caesar cyper, using any
+    number for the modulo operation, instead of 5.
+    If the M_DECIPHER flag is enabled, it reverses
+    the shift the message to decrypt the message.
+
+    Args:
+        m (int): Is the cipher mode flag. Indicates with
+        the method should encrypt or decrypt the message.
+        ch (str): The character that will be encrypted
+        shift (number): indcate how many bits should be
+        shifted
+        modulo (str): Number that will be the diviser in
+        the modulo operation
+        start (str): starting position for start encryption
     """
     if (m == CipherMode.M_DECIPHER):
         shift = -shift
