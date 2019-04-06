@@ -181,6 +181,11 @@ def caesar_str(m, msg, modulo, start):
 def main(msg, key):
     global v, c, MOD, START
 
+    print('Message {}'.format(msg))
+    print('Key {}'.format(key))
+
+    print('--------------')
+
     LEN_MSG = len(msg)
 
     v = [0] * LEN_MSG
@@ -199,17 +204,12 @@ def main(msg, key):
     vptx = vernam(vctx)
     cptx = caesar_str(CipherMode.M_DECIPHER, cctx, MOD, START)
 
-    print('Message {}'.format(msg))
-    print('Key {}'.format(key))
-
-    print('XOR')
-    for i in range(0, l):
-        print(vctx[i])
+    print('XOR: {}'.format(int.from_bytes(vctx, byteorder='big')))
     print('XOR dcr: {}'.format(vptx.decode('ascii')))
 
-    print('MOD: ')
-    for i in range(0, l):
-        print(cctx[i])
+    print('--------------')
+
+    print('MOD: {}'.format(int.from_bytes(cctx, byteorder='big')))
     print('MOD dcr: {}'.format(cptx.decode('ascii')))
 
 if __name__ == '__main__':
