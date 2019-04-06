@@ -1,7 +1,5 @@
-
 from enum import Enum
-
-HEX_MASK = 0xFFFFFFFF
+import lorem
 
 class CipherMode(Enum):
     M_ENCIPHER = 0
@@ -214,7 +212,7 @@ def main(msg, key):
 
 if __name__ == '__main__':
 
-    msg = 'a Top Secret secret'
-    key = 'this is my secret key'
+    msg = lorem.paragraph() + ' ' + lorem.paragraph()
+    key = lorem.paragraph() + ' ' + lorem.paragraph()
 
     main(msg, key)
