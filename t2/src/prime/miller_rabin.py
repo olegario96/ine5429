@@ -6,6 +6,18 @@ class OutOfRange(Exception):
         super().__init__(*args, **kwargs)
 
 def calculate_k_m(n):
+    """ Finds the greater 2 pow that
+    divides the n number, in the field
+    of the integers.
+
+        Params:
+            n (integer): the number that
+            will have the primality checked
+
+        Return tuple: the greates power of
+        two that divides the number, and the
+        composite part of n
+    """
     k = 0
     n -= 1
     m0, m1 = 0, 0
@@ -17,6 +29,24 @@ def calculate_k_m(n):
     return k - 1, int(m0)
 
 def miller_rabin(n, a):
+    """ Implements Miller Rabin algorithm
+    to check if a n number is prime or not.
+    It uses a number to check the primality
+    for n. Calculates its k, m values and check
+    if they have a correct range. Than, will
+    loop until reach the period of the mod function
+    or the mod of the division be 1 or n - 1.
+
+        Params:
+            n (int): the number that will have the
+            primality checked
+            a (int): number used to check if n is
+            prime or not
+
+        Returns boolean: False if n is for sure
+        not a prime number. Otherwise, return True,
+        indicating that is probably a prime number.
+    """
     if n != 2 and n % 2 == 0:
         return False
 
@@ -27,7 +57,7 @@ def miller_rabin(n, a):
 
     b0 = m
     i = 0
-    while (b0 != n -1 and b0 != 1) and (i < k - 1):
+    while (b0 != n - 1 and b0 != 1) and (i < k - 1):
         b0 = (2**b0) % n
         i += 1
 

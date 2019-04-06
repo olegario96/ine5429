@@ -1,5 +1,7 @@
 def fermat(n):
-    """ Implements the Fermat theorem. The
+    """ Implements the Fermat theorem. If
+    number is lesser than 2 or is divisible for
+    2, for sure is not a prime number. The
     theorem says that if a number n is prime,
     that any number between 1 and n - 1 pow
     n - 1 divided by n will remaind exactly
