@@ -19,7 +19,7 @@ def fibonacci_sequence(n):
 
     return sequence
 
-def lagged_fibonacci_generator(j, k, m=2**32):
+def lagged_fibonacci_generator(j, k, m=2**64):
     if 0 >= j or j >= k:
         raise OutOfRange
 
@@ -28,4 +28,4 @@ def lagged_fibonacci_generator(j, k, m=2**32):
     return [((s[i-j] + s[i-k]) % m) for i in range(n)]
 
 if __name__ == '__main__':
-    print(lagged_fibonacci_generator(31, 52))
+    print(lagged_fibonacci_generator(418, 1279))

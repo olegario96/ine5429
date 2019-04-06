@@ -19,42 +19,42 @@ randcnt = 0
 MOD = 95
 START = 32
 
-v = [0] * 4096
-c = [0] * 4096
+v = []
+c = []
 
 def mix(a, b, c, d, e, f, g, h):
-    a ^= (b << 11) & HEX_MASK; d += a; d &= HEX_MASK; b +=c; b &= HEX_MASK
-    b ^= c >> 2; e += b; e &= HEX_MASK; c += d; c &= HEX_MASK
-    c ^= (d << 8) & HEX_MASK; f += c; f &= HEX_MASK; d += e; d &= HEX_MASK
-    d ^= e >> 16; g += d; g &= HEX_MASK; e += f; e &= HEX_MASK
-    e ^= (f << 10) & HEX_MASK; h += e; h &= HEX_MASK; f += g; f &= HEX_MASK
-    f ^= g >> 4; a += f; a &= HEX_MASK; g += h; g &= HEX_MASK
-    g ^= (h << 8) & HEX_MASK; b += g; b &= HEX_MASK; h += a; h &= HEX_MASK
-    h ^= a >> 9; c +=h; c &= HEX_MASK; a += b; a &= HEX_MASK
+    a ^= (b << 11); d += a; b +=c
+    b ^= c >> 2; e += b; c += d
+    c ^= (d << 8); f += c; d += e
+    d ^= e >> 16; g += d; e += f
+    e ^= (f << 10); h += e; f += g
+    f ^= g >> 4; a += f; g += h
+    g ^= (h << 8); b += g; h += a
+    h ^= a >> 9; c +=h; a += b
     return a, b, c, d, e, f, g, h
 
 
-def isaac_():
+def isaac():
     global aa, bb, cc, randcnt
 
-    cc = (cc + 1) & HEX_MASK
-    bb = (bb + cc) & HEX_MASK
+    cc = cc + 1
+    bb = (bb + cc)
 
     for i in range(0, 256):
         x = mm[i]
         mod = i % 4
         if mod == 0:
-            aa = aa ^ ((aa << 13)&HEX_MASK)
+            aa = aa ^ (aa << 13)
         elif mod == 1:
             aa = aa ^ (aa >> 6)
         elif mod == 2:
-            aa = aa ^ ((aa << 2)&HEX_MASK)
+            aa = aa ^ (aa << 2)
         elif mod == 3:
-            aa = aa ^ ((aa >> 16))
+            aa = aa ^ (aa >> 16)
 
-        aa = (mm[(i + 128) % 256] + aa) & HEX_MASK
-        mm[i] = y = (mm[(x >> 2) % 256] + aa + bb) & HEX_MASK
-        randrsl[i] = bb = (mm[(y >> 10) % 256] + x) & HEX_MASK
+        aa = mm[(i + 128) % 256] + aa
+        mm[i] = y = mm[(x >> 2) % 256] + aa + bb
+        randrsl[i] = bb = mm[(y >> 10) % 256] + x
 
     randcnt = 0
 
@@ -68,14 +68,14 @@ def rand_init(flag):
 
     for i in range(0, 256, 8):
         if flag:
-            a += randrsl[i]; a &= HEX_MASK
-            b += randrsl[i + 1]; b &= HEX_MASK
-            c += randrsl[i + 2]; c &= HEX_MASK
-            d += randrsl[i + 3]; d &= HEX_MASK
-            e += randrsl[i + 4]; e &= HEX_MASK
-            f += randrsl[i + 5]; f &= HEX_MASK
-            g += randrsl[i + 6]; g &= HEX_MASK
-            h += randrsl[i + 7]; h &= HEX_MASK
+            a += randrsl[i]
+            b += randrsl[i + 1]
+            c += randrsl[i + 2]
+            d += randrsl[i + 3]
+            e += randrsl[i + 4]
+            f += randrsl[i + 5]
+            g += randrsl[i + 6]
+            h += randrsl[i + 7]
 
         a, b, c, d, e, f, g, h = mix(a, b, c, d, e, f, g, h)
         mm[i] = a
@@ -89,27 +89,27 @@ def rand_init(flag):
 
     if flag:
         for i in range(0, 256, 8):
-            a += mm[i]; a &= HEX_MASK
-            b += mm[i + 1]; b &= HEX_MASK
-            c += mm[i + 2]; c &= HEX_MASK
-            d += mm[i + 3]; d &= HEX_MASK
-            e += mm[i + 4]; e &= HEX_MASK
-            f += mm[i + 5]; f &= HEX_MASK
-            g += mm[i + 6]; g &= HEX_MASK
-            h += mm[i + 7]; h &= HEX_MASK
+            a += mm[i]
+            b += mm[i + 1]
+            c += mm[i + 2]
+            d += mm[i + 3]
+            e += mm[i + 4]
+            f += mm[i + 5]
+            g += mm[i + 6]
+            h += mm[i + 7]
 
-        a, b, c, d, e, f, g, h = mix(a, b, c, d, e, f, g, h)
+            a, b, c, d, e, f, g, h = mix(a, b, c, d, e, f, g, h)
 
-        mm[i] = a
-        mm[i + 1] = b
-        mm[i + 2] = c
-        mm[i + 3] = d
-        mm[i + 4] = e
-        mm[i + 5] = f
-        mm[i + 6] = g
-        mm[i + 7] = h
+            mm[i] = a
+            mm[i + 1] = b
+            mm[i + 2] = c
+            mm[i + 3] = d
+            mm[i + 4] = e
+            mm[i + 5] = f
+            mm[i + 6] = g
+            mm[i + 7] = h
 
-    isaac_()
+    isaac()
     randcnt = 0
 
 def i_random():
@@ -118,7 +118,8 @@ def i_random():
     r = randrsl[randcnt]
     randcnt += 1
     if (randcnt > 255):
-        isaac_()
+        isaac()
+        randcnt = 0
 
     return r
 
@@ -145,11 +146,12 @@ def vernam(msg):
     global v
 
     l = len(msg)
-    for i in range(0, l):
+
+    for i in range(0, len(v)):
         v[i] = 0
 
     for i in range(0, l):
-        v[i] = (i_rand_a() & 0xFF) ^ msg[i]
+        v[i] = (i_rand_a()) ^ msg[i]
 
     return bytes(v)
 
@@ -168,7 +170,7 @@ def caesar_str(m, msg, modulo, start):
 
     l = len(msg)
 
-    for i in range(0, l):
+    for i in range(0, len(c)):
         c[i] = 0
 
     for i in range(0, l):
@@ -176,8 +178,13 @@ def caesar_str(m, msg, modulo, start):
 
     return bytes(c)
 
-def isaac(msg, key):
-    global MOD, START
+def main(msg, key):
+    global v, c, MOD, START
+
+    LEN_MSG = len(msg)
+
+    v = [0] * LEN_MSG
+    c = [0] * LEN_MSG
 
     msg = msg.encode('ascii')
     key = key.encode('ascii')
@@ -206,6 +213,8 @@ def isaac(msg, key):
     print('MOD dcr: {}'.format(cptx.decode('ascii')))
 
 if __name__ == '__main__':
+
     msg = 'a Top Secret secret'
     key = 'this is my secret key'
-    isaac(msg, key)
+
+    main(msg, key)
