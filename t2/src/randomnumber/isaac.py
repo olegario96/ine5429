@@ -365,6 +365,4 @@ if __name__ == '__main__':
     """
     msg = (lorem.paragraph() + ' ' + lorem.paragraph())[:TWO_FIVE_SIX]
     key = (lorem.paragraph() + ' ' + lorem.paragraph())[:TWO_FIVE_SIX]
-    print(len(msg))
-    print(len(key))
     main(msg, key)
