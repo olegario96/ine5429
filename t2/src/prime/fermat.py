@@ -22,7 +22,7 @@ def fermat(n):
     if n != 2 and n % 2 == 0:
         return False
 
-    for a in range(1, n - 1):
+    for a in range(2, n - 1):
         result = (a**(n-1)) % n
         if result != 1:
             return False
@@ -30,6 +30,4 @@ def fermat(n):
     return True
 
 if __name__ == '__main__':
-    """ Uses 49 as base test.
-    """
-    fermat(49)
+    print(fermat(37635410187193800209006478881))

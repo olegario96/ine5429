@@ -1,14 +1,19 @@
 from enum import Enum
-import lorem
+from dotenv import load_dotenv
+
+import os
+
+load_dotenv('.env')
+load_dotenv('../.env')
 
 class CipherMode(Enum):
     M_ENCIPHER = 0
     M_DECIPHER = 1
     M_NONE = 2
 
-TWO_FIVE_SIX = 512
-randrsl = [0] * TWO_FIVE_SIX
-mm = [0] * TWO_FIVE_SIX
+FIVE_ONE_TWO = 512
+randrsl = [0] * FIVE_ONE_TWO
+mm = [0] * FIVE_ONE_TWO
 
 aa = 0
 bb = 0
@@ -363,6 +368,8 @@ if __name__ == '__main__':
         big strings to mock up a real message and a real a key that would
         be used in a real case.
     """
-    msg = (lorem.paragraph() + ' ' + lorem.paragraph())[:TWO_FIVE_SIX]
-    key = (lorem.paragraph() + ' ' + lorem.paragraph())[:TWO_FIVE_SIX]
+    msg = os.environ.get('MSG')
+    key = os.environ.get('KEY')
+    # msg = 'La'
+    # key = 'Sa'
     main(msg, key)
