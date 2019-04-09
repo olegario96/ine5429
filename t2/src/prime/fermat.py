@@ -1,4 +1,6 @@
-def fermat(n):
+import random
+
+def fermat(n, k=10):
     """ Implements the Fermat theorem. If
     number is lesser than 2 or is divisible for
     2, for sure is not a prime number. The
@@ -22,7 +24,9 @@ def fermat(n):
     if n != 2 and n % 2 == 0:
         return False
 
-    for a in range(2, n - 1):
+    for i in range(k):
+        print(i)
+        a = random.randint(2, n - 2)
         result = (a**(n-1)) % n
         if result != 1:
             return False
@@ -30,4 +34,4 @@ def fermat(n):
     return True
 
 if __name__ == '__main__':
-    print(fermat(37635410187193800209006478881))
+    print(fermat(325700986494452519399))
