@@ -21,10 +21,10 @@ def calculate_k_m(n):
     k = 0
     n -= 1
     m0, m1 = 0, 0
-    while (n % (2**k)) == 0:
+    while (n % pow(2, k)) == 0:
         k += 1
         m0 = m1
-        m1 = n // (2**k)
+        m1 = n // pow(2, k)
 
     return k - 1, int(m0)
 
@@ -58,7 +58,7 @@ def miller_rabin(n, a):
     b0 = m
     i = 0
     while (b0 != n - 1 and b0 != 1) and (i < k - 1):
-        b0 = (2**b0) % n
+        b0 = pow(2, b0, n)
         i += 1
 
     if i > 1:

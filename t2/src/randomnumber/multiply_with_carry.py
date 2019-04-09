@@ -1,7 +1,14 @@
+from dotenv import load_dotenv
+
+import os
+
 import random
 import time
 
-POWER = 4096
+load_dotenv('.env')
+load_dotenv('../.env')
+
+POWER = int(os.environ.get('POWER'))
 CMWC_CYCLE = 4096
 CMWC_C_MAX = 809430660
 
@@ -17,8 +24,8 @@ def rand32():
     """
     global POWER
 
-    result = random.randint(0, 2**POWER)
-    return result << 16 | random.randint(0, 2**POWER)
+    result = random.randint(0, pow(2, POWER))
+    return result << 16 | random.randint(0, pow(2, POWER))
 
 def init_cmwc(q, c, i, seed):
     """ Initialize the necessary variables to run

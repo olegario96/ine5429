@@ -25,13 +25,12 @@ def fermat(n, k=10):
         return False
 
     for i in range(k):
-        print(i)
         a = random.randint(2, n - 2)
-        result = (a**(n-1)) % n
+        result = pow(a, n-1, n)
         if result != 1:
             return False
 
     return True
 
 if __name__ == '__main__':
-    print(fermat(325700986494452519399))
+    print(fermat(153002247429829))
