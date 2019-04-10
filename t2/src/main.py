@@ -1,15 +1,22 @@
-from randomnumber import multiply_with_carry
-from prime import fermat
+import prime
+import randomnumber
+import sys
 
 if __name__ == '__main__':
-    n = multiply_with_carry()
-    is_prime = fermat(n)
+    arg = sys.argv[len(sys.argv)-1]
 
-    while not is_prime:
-        n = multiply_with_carry()
-        is_prime = fermat(n)
+    n = 0
+    is_prime = False
 
-    print(n)
-    print(is_prime)
-    # print('Random number generated with MWC: {}'.format(n))
-    # print('Is prime by fermat? {}'.format(is_prime))
+    if arg == '--fermat':
+        while not is_prime:
+            n = randomnumber.multiply_with_carry()
+            is_prime = prime.fermat(n)
+        print('Random number generated with MWC: {}'.format(n))
+        print('Is prime by fermat? {}'.format(is_prime))
+    elif arg == '--miller':
+        while not is_prime:
+            n = randomnumber.multiply_with_carry()
+            is_prime = prime.miller_rabin(n)
+        print('Random number generated with MWC: {}'.format(n))
+        print('Is prime by miller? {}'.format(is_prime))

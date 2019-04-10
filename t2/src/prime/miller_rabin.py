@@ -28,7 +28,7 @@ def calculate_k_m(n):
 
     return k - 1, int(m0)
 
-def miller_rabin(n, a):
+def miller_rabin(n, a=10):
     """ Implements Miller Rabin algorithm
     to check if a n number is prime or not.
     It uses a number to check the primality
@@ -55,10 +55,10 @@ def miller_rabin(n, a):
     if 1 > a or a > n - 1:
         raise OutOfRange('a must be greater than 1 and less than n - 1')
 
-    b0 = m
+    b0 = pow(a, m, n)
     i = 0
     while (b0 != n - 1 and b0 != 1) and (i < k - 1):
-        b0 = pow(2, b0, n)
+        b0 = pow(a, b0, n)
         i += 1
 
     if i > 1:

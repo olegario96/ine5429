@@ -50,7 +50,7 @@ def mix(a, b, c, d, e, f, g, h):
     h ^= a >> 9; c +=h; a += b
     return a, b, c, d, e, f, g, h
 
-def isaac():
+def isaac_():
     """
         Implements the base algorithm for
         the ISAAC Cypher. Uses a period
@@ -157,7 +157,7 @@ def rand_init(flag):
             mm[i + 6] = g
             mm[i + 7] = h
 
-    isaac()
+    isaac_()
     randcnt = 0
 
 def i_random():
@@ -178,7 +178,7 @@ def i_random():
     r = randrsl[randcnt]
     randcnt += 1
     if (randcnt > 255):
-        isaac()
+        isaac_()
         randcnt = 0
 
     return r
@@ -311,7 +311,7 @@ def caesar_str(m, msg, modulo, start):
 
     return bytes(c)
 
-def main(msg, key):
+def isaac(msg, key):
     """ Method that runs the ISAAC Cipher algorithm
     Encode the message and the key as bytes to work only
     with numbers, and not strings. Encrypts the messgage using
@@ -368,8 +368,8 @@ if __name__ == '__main__':
         big strings to mock up a real message and a real a key that would
         be used in a real case.
     """
-    msg = os.environ.get('MSG')
-    key = os.environ.get('KEY')
-    # msg = 'La'
-    # key = 'Sa'
-    main(msg, key)
+    # msg = os.environ.get('MSG')
+    # key = os.environ.get('KEY')
+    msg = 'Lorem'
+    key = 'Sed u'
+    isaac(msg, key)
