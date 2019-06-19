@@ -22,10 +22,12 @@ class Signer(object):
 		cert_path = './cert.p12' if certificate_path is None else certificate_path
 		cert_password = environ.get('CERTIFICATE_PASSWORD') if certificate_password is None else certificate_password
 		cert_password_bytes = cert_password.encode()
-		certificate_file = open(cert_path, 'rb').read()
-		self.p12 = crypto.load_pkcs12(certificate_file, cert_password_bytes)
-		self.pkey = self.p12.get_privatekey()
-		self.cert = self.p12.get_certificate()
+		with open(cert_path, 'rb') as cert_file:
+			certificate_file = cert_file.read()
+			cert_file.close()
+			self.p12 = crypto.load_pkcs12(certificate_file, cert_password_bytes)
+			self.pkey = self.p12.get_privatekey()
+			self.cert = self.p12.get_certificate()
 
 	def sign_file(self, file_path):
 		"""
@@ -33,8 +35,9 @@ class Signer(object):
 		:param file_path: Path to the file that will be signed
 		:return: The file signature
 		"""
-		data = open(file_path, 'rb').read()
-		return self.sign_content(data)
+		with open(file_path, 'rb') as f:
+			data = f.read()
+			return self.sign_content(data)
 
 	def sign_content(self, content):
 		"""

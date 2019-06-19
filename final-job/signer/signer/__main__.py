@@ -10,4 +10,4 @@ from os import environ
 
 if __name__ == '__main__':
 	load_dotenv()
-	app.run(host=environ.get('HOST'), port=environ.get('PORT'), debug=environ.get('DEBUG'))
+	app.run(host=environ.get('HOST'), port=environ.get('PORT'), debug=eval(environ.get('DEBUG')))
