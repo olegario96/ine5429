@@ -21,8 +21,9 @@ class Signer(object):
 		"""
 		cert_path = './cert.p12' if certificate_path is None else certificate_path
 		cert_password = environ.get('CERTIFICATE_PASSWORD') if certificate_password is None else certificate_password
+		cert_password_bytes = cert_password.encode()
 		certificate_file = open(cert_path, 'rb').read()
-		self.p12 = crypto.load_pkcs12(certificate_file, cert_password)
+		self.p12 = crypto.load_pkcs12(certificate_file, cert_password_bytes)
 		self.pkey = self.p12.get_privatekey()
 		self.cert = self.p12.get_certificate()
 
