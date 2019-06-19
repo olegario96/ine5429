@@ -7,6 +7,7 @@ from signer.app import app
 from signer.models import Signer
 
 # Built-in imports
+from json import loads
 from os import environ
 
 @pytest.fixture
@@ -23,5 +24,6 @@ def test_sign_route(client):
 		f.seek(0)
 		data = dict(file=f)
 		res = client.post('/sign', data=data)
+		signature = loads(res.data)['signature']
 		signer = Signer('./cert.p12', environ.get('CERTIFICATE_PASSWORD'))
-		assert crypto.verify(signer.cert, res.data, content, environ.get('DIGEST')) == None
+		assert crypto.verify(signer.cert, signature.encode('ISO-8859-1'), content, environ.get('DIGEST')) == None
