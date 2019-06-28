@@ -1,0 +1,65 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"version": "1.0.0",
+		"title": "Signer Microservice",
+		"description": "Microservice to digitally sign a file.",
+		"contact": {
+			"name": "Gustavo Olegário",
+			"email": "gustavo-olegario@hotmail.com"
+		},
+		"license": {
+			"name": "Beerware",
+			"url": "https://spdx.org/licenses/Beerware.html"
+		}
+	},
+	"host": "localhost:5000",
+	"schemes": [
+		"http"
+	],
+	"consumes": [
+		"application/json"
+	],
+	"produces": [
+		"application/json"
+	],
+	"paths": {
+		"/sign": {
+			"post": {
+				"description": "Returns the signature for a file",
+				"consumes": "multipart/form-data",
+				"parameters": [
+					{
+						"name": "file",
+						"in": "formData",
+						"description": "File to be signed",
+						"required": true,
+						"type": "file"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Bytes from the signature for the file. THE BYTES ARE ENCODED IN ISO-8859-1",
+						"schema": {
+							"$ref": "#/definitions/ResponseSign"
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"ResponseSign": {
+			"type": "object",
+			"required": [
+				"signature"
+			],
+			"properties": {
+				"signature": {
+
+					"example": "Kq\\u00c0\\u00d59\\u00c4\\u0000dG\\u0016\\u00eb\\u0096\\u00fdb*\\u00cf\\u00e9iS\\u00a2\\u00cc\\u00e9\\u00dd\\u00a7\\u0098c,!\\u00f2\\u0004\\u00c3\\u00c3\\u0013\\u008f\\u00d6\\u00fb\\u00ce\\u0012y\\u00c6[N\\u00f5\\u00e5/?\\u00ce\\u00e7u\\u0002{*Y^\\u0003\\u00dd\\u00b0p\\u0091\\u0086G\\u00a8\\u00fb\\u00bb\\u00f0\\u0089\\u00b0\\u0097<#\\u001f\\u00a0\\u00c4\\u009cp\\u00e3)\\u00adPG\\u00ac\\u00c5\\u0096\\u001dT\\\\\\u0014U\\u00f2\\u0096\\u00b5,|\\u00d8h\\u00c39,\\u008f\\u0097\\u0006F\\u00fe\\u00c3\\u007f>\\u00d3\\u0091C\\u009a\\u009d7=\\u00ed\\u00f7\\u00d2\\u00b3\\u008f?$\\u00a1\\u009e \\u0097L\\u0085\\u0087\\u00f2\\u00a8cen\\t\\u0095\\u00b07\\u00108\\u0012\\u00f7\\u00fb}\\u00a3\\u0007\\u00b0t\\u00bc\\u008cZR\\u00b0\\u00a2\\u0086i\\u0010\\u00b8\\u0086\\u00ce\\u00cc\\u00b2P8\\u00c7\\u0086\\u00e33\\u00bc\\u00ce\\u00c7v\\u00ed\\u001az\\u00ee\\u00de\\u0007\\u00dc\\u00d6\\u00bd\\u000f\\u0005\\u00d5\\u00d9T\\u00f6\\u00f2\\u008fO\\u00b4\\u00ac\\u00d7b@DP\\u00a9\\u00abB\\u00ae\\u00c9in(\\u00a6\\u00db+\\u00c0\\u009a\\u0002\\u0091\\u00eb\\u0016op\\u00cdH\\u0086\\u0013Y2\\u00f9\\u0010\\u000eCr\\u00c3W\\u00e6\\u001f\\u00abf\\u0010\\u00a1_\\u001b\\u0000\\u00b0\\u0087Z\\u009a\\u0086-M\\u00d5L\\u00abk3\\u001a\\u0092\\u00c8(\\u00b8\\u00c7\\u00bc\\u00a5"
+				}
+			}
+		}
+	}
+}
