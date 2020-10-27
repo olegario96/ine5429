@@ -5,7 +5,7 @@ attrs==19.1.0
 autopep8==1.4.4
 cffi==1.12.3
 Click==7.0
-cryptography==2.7
+cryptography==3.2
 Flask==1.0.3
 Flask-Cors==3.0.8
 importlib-metadata==0.18
